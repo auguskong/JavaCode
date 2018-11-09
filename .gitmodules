@@ -1,0 +1,6 @@
+[submodule "Princeton-Algorithm"]
+	path = Princeton-Algorithm
+	url = https://github.com/auguskong/Princeton-Algorithm.git
+[submodule "LeetCode_Solutions"]
+	path = LeetCode_Solutions
+	url = https://github.com/auguskong/LeetCode_Solutions.git
