@@ -1,12 +1,11 @@
 /**
 * Date: 05/21/18
-*	
 *
 */
 public class Solution {
 	public int[] maxSlidingWindow(int[] a, int k) {
 		if (a == null || k < 1 || a.length < k) {
-			return null;
+			return new int[]{};
 		}
 		int n = a.length;
 		int[] res = new int[n - k + 1];
@@ -25,7 +24,7 @@ public class Solution {
 			}
 			deque.offer(i);
 			//wait until the window have set up
-			if (index >= k - 1) {
+			if (i >= k - 1) {
 				res[index++] = a[deque.peek()];
 			}
 		}
