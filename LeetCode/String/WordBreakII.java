@@ -1,5 +1,5 @@
 /*
-* 07.24 
+* 07.24
 * DFS + memorization search
 */
 
@@ -11,9 +11,10 @@ class Solution {
 	}
 
 	// The helper function return the list of the substring() after current s?
-	private ArrayList<String> wordBreakHelper(String s, 
-																						List<String> dict, 
-																						Map<String, ArrayList<String>> memo) {
+	private ArrayList<String> wordBreakHelper(
+		String s,
+		List<String> dict,
+		Map<String, ArrayList<String>> memo) {
 		if (memo.containsKey(s)) {
 			return memo.get(s);
 		}
@@ -26,7 +27,7 @@ class Solution {
 		}
 
 		if (dict.contains(s)) {
-			results.add(s); 
+			results.add(s);
 		}
 
 		for (int len = 1; len < s.length(); len++) {

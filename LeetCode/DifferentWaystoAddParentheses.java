@@ -7,7 +7,7 @@ class Solution {
 	public List<Integer> diffWaysToCompute(String input) {
 		if (map.containsKey(input)) return map.get(input);
 		List<Integer> res = new ArrayList();
-		
+
 		for (int i = 0; i < input.length(); i++) {
 			char op = input.charAt(i);
 			if (op == '+' || op == '-' || op == '*') {
@@ -32,7 +32,7 @@ class Solution {
 		if (res.size() == 0) {
 			res.add(Integer.parseInt(input));
 		}
-		map.put(input, res); //??
+		map.put(input, res); //这里是剪枝处理？？不太确定
 		return res;
 	}
 }

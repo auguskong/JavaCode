@@ -1,10 +1,6 @@
 class Solution {
-    /*
-     * @param k : description of k
-     * @param nums : array of nums
-     * @return: description of return
-     */
-    public int kthLargestElement(int k, int[] nums) {
+
+    public int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k < 1 || k > nums.length){
             return -1;
         }
@@ -47,16 +43,4 @@ class Solution {
         nums[i] = nums[j];
         nums[j] = tmp;
     }
-};
-
-class Solution {
-    /*
-     * @param k : description of k
-     * @param nums : array of nums
-     * @return: description of return
-     */
-    public int kthLargestElement(int k, int[] nums) {
-        Arrays.sort(nums);
-        return nums[nums.length-k];
-    }
-};
+}

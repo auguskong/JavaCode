@@ -1,40 +1,7 @@
-class MinStack
-{
-    static class Element
-    {
-        final int value;
-        final int min;
-        Element(final int value, final int min)
-        {
-            this.value = value;
-            this.min = min;
-        }
-    }
-    final Stack<Element> stack = new Stack<>();
-    
-    public void push(int x) {
-        final int min = (stack.empty()) ? x : Math.min(stack.peek().min, x);
-        stack.push(new Element(x, min));
-    }
 
-    public void pop()
-    {
-        stack.pop();
-    }
-
-    public int top()
-    {
-        return stack.peek().value;
-    }
-
-    public int getMin()
-    {
-        return stack.peek().min;
-    }
-}
 
 class MinStack {
-    
+
     private Stack<Integer> stack;
     private Stack<Integer> minStack; //store the min value
 
@@ -43,7 +10,7 @@ class MinStack {
         stack = new Stack<Integer>();
         minStack = new Stack<Integer>();
     }
-    
+
     public void push(int x) {
         /*if (stack.isEmpty()){
             stack.push(x);
@@ -67,22 +34,22 @@ class MinStack {
             minStack.push(Math.min(number, minStack.peek()));
         }
     }
-    
+
     public void pop() {
         if (!stack.isEmpty()) {
            stack.pop();
-            minStack.pop(); 
+            minStack.pop();
         }
-        
+
     }
-    
+
     public int top() {
         if (!stack.isEmpty()) {
             return stack.peek();
         }
         return -1;
     }
-    
+
     public int getMin() {
         if (!minStack.isEmpty()) {
             return minStack.peek();

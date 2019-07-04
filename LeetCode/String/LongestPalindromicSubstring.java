@@ -17,13 +17,14 @@ class Solution {
         int start = 0;
         // 因为本题是要求返回substring 所以需要求出substring的起点 和 终点
         for (int i = 0; i < n; i++) {
+            // 奇数个字符
             int currLen = generatePalindrome(s, i, i);
             if (currLen > longest) {
                 longest = currLen;
                 // 注意这里是需要长度除 2
                 start = i - currLen / 2;
             }
-
+            // 偶数个字符
             currLen = generatePalindrome(s, i, i+1);
             if (currLen > longest) {
                 longest = currLen;
@@ -53,8 +54,15 @@ class Solution {
         while (left >= 0 && right < s.length()
                 && s.charAt(left) == s.charAt(right)) {
             len += left == right ? 1 : 2;
-            left--;
+            left--; // 注意这里是从中心向两边走, left-- right++
             right++;
+        }
+
+        while (left >= 0 && right < s.length() &&
+               s.charAt(left) == s.charAt(right)) {
+            count += left == right ? 1 : 2;
+            left++;
+            right--;
         }
 
         return len;

@@ -88,3 +88,41 @@ class Solution {
         return curr.val == 0 ? curr.next : curr;
     }
 }
+
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1 == null && l2 == null) {
+            return null;
+        }
+        Stack<ListNode> s1 = new Stack<>();
+        Stack<ListNode> s2 = new Stack<>();
+        while (l1 != null) {
+            s1.push(l1);
+            l1 = l1.next;
+        }
+        while (l2 != null) {
+            s2.push(l2);
+            l2 = l2.next;
+        }
+        ListNode curr = new ListNode(0);
+        int carry = 0;
+        while (!s1.isEmpty() || !s2.isEmpty()) {
+            int sum = carry;
+            if (!s1.isEmpty()) {
+                l1 = s1.pop();
+                sum += l1.val;
+            }
+            if (!s2.isEmpty()) {
+                l2 = s2.pop();
+                sum += l2.val;
+            }
+            curr.val = sum % 10;
+            carry = sum / 10;
+            ListNode head = new ListNode(carry);
+            head.next = curr;
+            curr = head;
+        }
+
+        return curr.val == 0 ? curr.next : curr;
+    }
+}

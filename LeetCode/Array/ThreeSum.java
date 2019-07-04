@@ -26,7 +26,7 @@ public class Solution {
             }
 
             int left = i + 1, right = nums.length - 1;
-            int target = -nums[i];
+            int target = - nums[i];
 
             twoSum(nums, left, right, target, results);
         }
@@ -63,5 +63,59 @@ public class Solution {
                 right--;
             }
         }
+    }
+}
+
+
+public List<List<Integer>> threeSum(int[] num) {
+    Arrays.sort(num);
+    List<List<Integer>> res = new LinkedList<>();
+    for (int i = 0; i < num.length-2; i++) {
+        if (i == 0 || (i > 0 && num[i] != num[i-1])) {
+            int lo = i+1, hi = num.length-1, sum = 0 - num[i];
+            while (lo < hi) {
+                if (num[lo] + num[hi] == sum) {
+                    res.add(Arrays.asList(num[i], num[lo], num[hi]));
+                    while (lo < hi && num[lo] == num[lo+1]) lo++;
+                    while (lo < hi && num[hi] == num[hi-1]) hi--;
+                    lo++; hi--;
+                } else if (num[lo] + num[hi] < sum) lo++;
+                else hi--;
+           }
+        }
+    }
+    return res;
+}
+
+/*
+三个指针 i使用for loop, left 和 right在while loop中进行操作,
+当 nums[left] + nums[right] == target时, 添加新的元素
+*/
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res = new LinkedList();
+        int last = 0;
+        for (int i = 0; i < nums.length; i++) {
+            //skip duplicated first number
+            if (i != 0 && nums[i] == last) continue;
+            //convert the problem to find two sum
+            int target = 0 - nums[i];
+            int left = i + 1, right = nums.length - 1;
+            while (left < right) {
+                //move left and right pointer to find all subsets
+                if (nums[left] + nums[right] == target) {
+                    int a = nums[left];
+                    int b = nums[right];
+                    res.add(Arrays.asList(new Integer[] {nums[i], a, b}));
+                    //skip duplicate subsets
+                    while (left < right && nums[++left] == a && nums[--right] == b) continue;
+                } else if (nums[left] + nums[right] > target) right--;
+                else if (nums[left] + nums[right] < target) left++;
+            }
+
+            last = nums[i];
+        }
+        return res;
     }
 }

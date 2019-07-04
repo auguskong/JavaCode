@@ -46,7 +46,7 @@ class Solution {
         int rob = 0;
         int notRob = 0;
         for (int num : nums) {
-            int pre = Math.max(notRob, rob);
+            int pre = Math.max(notRob, rob); // pre变量表示的是什么？
             rob = notRob + num;
             notRob = pre;
         }

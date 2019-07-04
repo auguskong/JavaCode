@@ -5,6 +5,7 @@
 * Algorithm: 同向双指针
 */
 
+// 正确的写法
 class Solution {
     public void moveZeroes(int[] nums) {
         int n = nums.length;
@@ -26,7 +27,8 @@ class Solution {
             if (j == n - 1) break;
         }
         */
-        int left = 0, int right = 0;
+        int left = 0;
+        int right = 0;
         while (right < n) {
             // right指向第一个非零的数字，而left指向第一个为零的数字, 转换之后直接继续遍历, 知道
             if (nums[right] != 0) {
@@ -39,7 +41,67 @@ class Solution {
 
     private void swap(int[] A, int i, int j) {
         int swap = A[i];
-        int A[i] = A[j];
+        A[i] = A[j];
         A[j] = swap;
     }
 }
+
+// 另一种解法: 使用for loop 来限定local variable的范围
+class Solution {
+    public void moveZeroes(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return;
+        }
+        for (int left = 0, right = 0; right < nums.length;right++) {
+            System.out.println("right: " + right);
+            System.out.println("left: " + left);
+            // 当right第一次跑到left的前面的时候,left一定是指向0的
+            if (nums[right] != 0) {
+                swap(nums, left, right);
+                left++;
+            }
+        }
+        return;
+    }
+
+    private void swap(int[] A, int i, int j) {
+        int swap = A[i];
+        A[i] = A[j];
+        A[j] = swap;
+    }
+}
+
+// 错误的写法:
+class Solution {
+    public void moveZeroes(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return;
+        }
+        int left = 0;
+        int right = 0;
+        int size = nums.length;
+        // 这样的写法有个问题是 right可能跑到left前面 这样就会将0向前置换
+        while (right < size - 1 && nums[right] == 0) {
+            right++;
+            while (left < size - 1 && nums[left] != 0) {
+                left++;
+            }
+            swap(left, right, nums);
+        }
+        return;
+    }
+
+    private void swap(int a, int b, int[] nums) {
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
+}
+
+/* test case
+必须要宝恒right元素在left元素的右边
+
+已经满足要求: [1,0]
+首个元素为零: [0, 1]
+中间元素为零: [1,0,1]
+*/
