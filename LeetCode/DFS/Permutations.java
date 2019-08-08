@@ -1,28 +1,66 @@
-class Solution {
-    public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result = new ArrayList();
-        if (nums == null || nums.length == 0) {
-            return result;
-        }
-        //declare an used array here.
+// Input: [1,2,3]
+// Output:
+// [
+//   [1,2,3],
+//   [1,3,2],
+//   [2,1,3],
+//   [2,3,1],
+//   [3,1,2],
+//   [3,2,1]
+// ]
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
+class Permutations {
+    static int[] nums;
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
         boolean[] used = new boolean[nums.length];
-        backtrack(nums, result, new ArrayList(), 0, used);
-        return result;
+        helper(nums, res, new ArrayList<>(), used);
+        return res;
     }
-    
-    public void backtrack(int[] nums, List<List<Integer>> result, List<Integer> list, int start, boolean[] used) {
-        if (list.size() == nums.length) {
-            result.add(new ArrayList(list));
+
+    private static void helper(int[] nums, List<List<Integer>> res, List<Integer> level, boolean[] used) {
+        indent(level.size());
+        System.out.printf("helper(%s) \n", level.toString());
+        if (level.size() == nums.length) {
+            indent(level.size());
+            System.out.printf("Add to res and return \n");
+            res.add(new ArrayList(level));
+            return;
         }
-        //loop start from the 0, so we can back to the element in the front
         for (int i = 0; i < nums.length; i++) {
             if (!used[i]) {
-                list.add(nums[i]);
+                level.add(nums[i]);
                 used[i] = true;
-                backtrack(nums, result, list, start + 1, used);
+                helper(nums, res, level, used);
+                level.remove(level.size() - 1);
                 used[i] = false;
-                list.remove(list.size() - 1);
             }
         }
+    }
+
+    private static void indent(int n) {
+        for (int i = 0; i < n; i++) {
+            System.out.print("   ");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        // 判断是否还有输入
+        if (scan.hasNext()) {
+            String str = scan.next();
+            System.out.println("输入的数据为：" + str);
+            nums = new int[str.length()];
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                nums[i] = c - '0';
+            }
+        }
+        List<List<Integer>> res = permute(nums);
+        System.out.println(res);
+        scan.close();
     }
 }
