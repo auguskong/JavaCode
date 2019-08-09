@@ -64,3 +64,34 @@ class Permutations {
         scan.close();
     }
 }
+
+// Use HashSet to record the used elements
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        // HashSet 的contains() 和 remove
+        HashSet<Integer> set = new HashSet<>();
+        permute(nums, res, new ArrayList<>(), set);
+        return res;
+    }
+
+    private void permute(int[] nums, List<List<Integer>> res, List<Integer> level, HashSet<Integer> set) {
+        if (level.size() == nums.length) {
+            res.add(new ArrayList(level));
+            return;
+        }
+          for (int i = 0; i < nums.length; i++) {
+              if (!set.contains(nums[i])) {
+                level.add(nums[i]);
+                set.add(nums[i]);
+                permute(nums, res, level, set);
+                level.remove(level.size() - 1);
+                set.remove(nums[i]);
+            }
+        }
+
+    }
+}

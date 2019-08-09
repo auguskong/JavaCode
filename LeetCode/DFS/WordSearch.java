@@ -49,47 +49,37 @@ public class Solution {
 
 class Solution {
     public boolean exist(char[][] board, String word) {
-        if (board == null || board.length == 0 || word == null || word.length() == 0) {
+        if (board == null || board.length == 0 || board[0].length == 0) {
             return false;
         }
-
         int rows = board.length;
         int cols = board[0].length;
-        char[] chars = word.toCharArray();
-        boolean isFound = false;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (chars[0] == board[i][j]) {
-                    isFound = Search(board, chars, i, j, 0);
-                    if (isFound) {
-                        return true;
-                    }
+                if (dfs(board, word, i, j, 0)) {
+                    return true;
                 }
             }
         }
         return false;
     }
 
-    private boolean Search(char[][] board, char[] chars, int row, int col, int curr) {
-        if (curr >= chars.length) {
+    private boolean dfs(char[][] board, String word, int i, int j, int index) {
+        if (index == word.length()) {
             return true;
         }
-        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) {
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word.charAt(index)) {
             return false;
         }
-
-        char temp = board[row][col];
-        if (chars[curr] == board[row][col]) {
-            board[row][col] = '#';
-            if (Search(board, chars, row + 1, col, curr + 1) ||
-                Search(board, chars, row - 1, col, curr + 1) ||
-                Search(board, chars, row, col + 1, curr + 1) ||
-                Search(board, chars, row, col - 1, curr + 1)) {
-                return true;
-            }
+        char temp = board[i][j];
+        board[i][j] = '#';
+        if (dfs(board, word, i + 1, j, index + 1) ||
+           dfs(board, word,  i - 1, j, index + 1) ||
+           dfs(board, word,  i, j + 1, index + 1) ||
+           dfs(board, word,  i, j - 1, index + 1)) {
+           return true;
         }
-        board[row][col] = temp;
+        board[i][j] = word.charAt(index);
         return false;
     }
 }
-

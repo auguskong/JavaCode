@@ -1,3 +1,5 @@
+// Each number in candidates may only be used once in the combination.
+
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
@@ -8,7 +10,7 @@ class Solution {
         helper(candidates, target, result, new ArrayList<>(), 0);
         return result;
     }
-    
+
     public void helper(int[] candidates, int remain, List<List<Integer>> result, List<Integer> temp, int start) {
         if (remain == 0) {
             result.add(new ArrayList<>(temp));
@@ -18,7 +20,7 @@ class Solution {
             return;
         }
         for (int i = start; i < candidates.length; i++) {
-            //avoid repeated 
+            //avoid repeated
             if (i > start && candidates[i] == candidates[i - 1]) continue;
             temp.add(candidates[i]);
             helper(candidates, remain - candidates[i], result, temp, i + 1);

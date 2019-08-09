@@ -41,3 +41,37 @@ class Solution {
         helper(root.right, res, curr);
     }
 }
+
+
+public class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> list = new ArrayList<String>();
+        if(root == null) return list;
+        dfs(list, root, new StringBuilder());
+        return list;
+    }
+
+    private void dfs(List<String> list, TreeNode node, StringBuilder sb){
+        if(node == null) return;
+
+        // 存盘，记录当前位置
+        int length = sb.length();
+        ------------ADD-------------
+        sb.append(node.val);
+        ------------Check--------------
+        if(node.left == null && node.right == null){
+            list.add(sb.toString());
+            // 归位（抹掉最后一个数字）
+            sb.setLength(length);
+            return;
+        }
+
+        -------------DFS---------------
+        sb.append("->");
+        dfs(list, node.left, sb);
+        dfs(list, node.right, sb);
+        -----------Backtrack-------------
+        // 归位（抹掉最后一个箭头和前面的数字）
+        sb.setLength(length);
+    }
+}
