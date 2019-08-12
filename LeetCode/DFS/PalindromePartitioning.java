@@ -39,13 +39,17 @@ class Solution {
     }
 }
 
- public class Solution {
+//=======================================================================
+//DP 版本的答案 将isPalindrome信息存到DP数组之中来避免isPalindrome多次调用进行优化
+//=======================================================================
+public class Solution {
     public List<List<String>> partition(String s) {
         List<List<String>> rst = new ArrayList<List<String>>();
 
         boolean[][] dp = new boolean[s.length()][s.length()];
         for(int i = 0; i < s.length(); i++){
             for(int j = 0; j <= i; j++){
+                // ？？？: 这里的i - j <= 2是什么意思?
                 if(s.charAt(i) == s.charAt(j) && (i - j <= 2 || dp[i - 1][j + 1]))
                     dp[i][j] = dp[j][i] = true;
             }

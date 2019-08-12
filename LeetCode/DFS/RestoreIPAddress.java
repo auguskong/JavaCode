@@ -7,38 +7,42 @@ IP的命名规则
 class Solution {
     public List<String> restoreIpAddresses(String s) {
         List<String> res = new ArrayList<>();
-        dfs(res, new StringBuilder(), s, 0, 0);
+        if (s == null || s.length() < 4) {
+            return res;
+        }
+        dfs(res, s, new StringBuilder(), 0, 0);
         return res;
     }
 
-    private void dfs(List<String> res, StringBuilder sb, String s, int strIndex, int ipIndex) {
+    private void dfs(List<String> res, String s, StringBuilder sb, int strIndex, int ipIndex) {
         if (ipIndex > 4) {
             return;
         }
         if (ipIndex == 4 && strIndex == s.length()) {
-            sb.setLength(sb.length() - 1); //需要把多加的那个'.'去掉
+            sb.setLength(sb.length() - 1); // remove the last dot
             res.add(sb.toString());
             return;
         }
-        int len = sb.length();
-        for (int i = 0; i < 3; i++) {
-            if (strIndex + i < s.length()) {
-                String subStr = s.substring(strIndex, strIndex + i + 1);
-                if (isValid(subStr)) {
+        int length = sb.length();
+        for (int i = 1; i <= 3; i++) {
+            if (strIndex + i <= s.length()) {
+                String subStr = s.substring(strIndex, strIndex + i);
+                //System.out.println(subStr);
+                if (isValidIP(subStr)) {
                     sb.append(subStr);
                     sb.append('.');
-                    dfs(res, sb, s, strIndex + i + 1, ipIndex + 1);
-                    sb.setLength(len);
+                    dfs(res, s, sb, strIndex + i, ipIndex + 1);
                 }
+                sb.setLength(length);
             }
         }
     }
 
-    private boolean isValid(String str) {
-        if (str.charAt(0) == '0') {
-            return str.equals("0");
+    private boolean isValidIP(String s) {
+        if (s.charAt(0) == '0') {
+            return s.equals("0");
         }
-        int num = Integer.parseInt(str);
+        int num = Integer.parseInt(s);
         if (num > 0 && num <= 255) {
             return true;
         }
