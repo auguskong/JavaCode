@@ -12,6 +12,7 @@ class Solution {
     private boolean recurFind(Set<String> set, String s, Map<String, Boolean> cache) {
         if (cache.containsKey(s)) return cache.get(s);
         if (set.contains(s)) return true;
+        // 对于整个字符串s都要进行搜索
         for (int i = 1; i < s.length(); i++) {
             if (set.contains(s.substring(0, i)) && recurFind(set, s.substring(i, s.length()), cache)) {
                 cache.put(s, true);

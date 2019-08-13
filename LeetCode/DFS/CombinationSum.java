@@ -21,9 +21,7 @@ class Solution {
         }
         for (int i = start; i < candidates.length; i++) {
             level.add(candidates[i]);
-            remain = remain - candidates[i];
-            dfs(candidates, remain, res, level, i);
-            remain = remain + candidates[i];
+            dfs(candidates, remain - candidates[i], res, level, i);
             level.remove(level.size() - 1);
         }
     }

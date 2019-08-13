@@ -38,7 +38,7 @@ public class Solution {
     }
 }
 
-// 优化: 不使用visited数组进行记录
+// 优化: 直接改变输入的M数组来代替使用额外的visited数组进行访问节点的标记
 public class Solution {
     public void dfs(int[][] M, int i) {
         for (int j = 0; j < M.length; j++) {

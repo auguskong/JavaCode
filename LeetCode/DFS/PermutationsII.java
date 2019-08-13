@@ -48,8 +48,9 @@ class Solution {
             return;
         }
         // 对于[1,1,2]的test case
-        // used[1] 删除9个case 而不是21个因为可能会从中间层停止调用
+        // used[1] 只删除9个case 而不是21个 因为可能会从中间层停止调用
         for (int i = 0; i < nums.length; i++) {
+            // 这里因为都是从第一个元素nums[0]开始遍历的,所以是需要用used数组来记录元素的使用情况
             if (used[i] || i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
                 continue;
             }
