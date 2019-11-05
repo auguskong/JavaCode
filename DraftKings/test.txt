@@ -1,0 +1,8 @@
+6
+add,10,Bob,-1
+add,8,Matthew,-1
+add,6,Peter,10
+add,3,AA,6
+print
+remove,3
+

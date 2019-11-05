@@ -1,5 +1,6 @@
 
 // 饿汉式单例模式: 在类加载时就创建好实例,后面不一定会用上
+// 对象实例化的过程会报错 也就是说 不能使用new 方法来构造实例对象
 class EagerSingleton {
     private EagerSingleton() {}; // 构造方法私有化
     private static EagerSingleton instance = new EagerSingleton(); //内部产生实例化对象
@@ -50,7 +51,7 @@ class SyncSingleton {
 }
 
 class DoubleCheckSingleton {
-    //用volatile修饰instance变量保证初始化实例时对多线程课件
+    //用volatile修饰instance变量保证初始化实例时对多线程可见
     private volatile static DoubleCheckSingleton instance;
 
     private DoubleCheckSingleton() {};
